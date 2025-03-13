@@ -10,4 +10,20 @@
         exit();
     } 
 
+    switch($method){
+        case 'GET':
+            include 'read.php';
+            break;
+        case 'POST':
+            include 'create.php';
+            break;
+        case 'PUT':
+            include 'update.php';
+            break;
+        default:
+            include 'delete.php';
+            break;
+    }
+    
+
 ?>
