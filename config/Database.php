@@ -16,12 +16,15 @@
             $this->port = getenv('PORT');
         }
 
+
+
         public function connect(){
             if($this->conn){
                 return $this->conn;
             }
+            
             else{
-                $dsn = "pgsql:host={$this->host};port={$this->port};dbname={$this->dbname};";
+                $dsn = "pgsql:host={$this->host};port={$this->port};dbname={$this->dbname};sslmode=prefer";
 
                 try{
                     $this->conn = new PDO($dsn, $this->username, $this->password);

@@ -1,17 +1,31 @@
 <?php
+    require_once '../../config/Database.php';
+    require_once '../../models/Author.php';
 
 
+    header('Content-Type: application/json');
+
+
+    try{
+        $database = new Database();
+        $db = $database->connect();
+
+        $author = new Author($db);
+        $authors = $author->getAuthors();
+
+        echo json_encode([
+            'success' => true,
+            'data' => $authors
+        ]);
+    }
+    catch(Excpetion $e){
+        echo json_encode([
+            'success' => false,
+            'message' => $e->getMessage()
+        ]);
+    }
+
+    exit;
 
 ?>
 
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-</head>
-<body>
-    <h1>read</h1>
-</body>
-</html>

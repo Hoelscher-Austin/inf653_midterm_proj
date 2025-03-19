@@ -12,6 +12,10 @@
 
     switch($method){
         case 'GET':
+            if($_GET['id']){
+                include 'read_single.php';
+                break;
+            }
             include 'read.php';
             break;
         case 'POST':

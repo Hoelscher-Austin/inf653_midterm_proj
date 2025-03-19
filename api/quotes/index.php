@@ -10,8 +10,14 @@
         exit();
     } 
 
+    
+
     switch($method){
         case 'GET':
+            if(isset($_GET['id']) || isset($_GET['author_id']) || isset($_GET['category_id'])){
+                include 'read_single.php';
+                break;
+            }
             include 'read.php';
             break;
         case 'POST':
