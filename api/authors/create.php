@@ -27,7 +27,7 @@
             'success' => true,
             'data' => [
                 'id' => $newAuthor,
-                'category' => $data['author']
+                'author' => $data['author']
             ]
             ]);
     }

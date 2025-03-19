@@ -88,7 +88,31 @@
 
         }
 
+        // Update Exisiting Author
+        public function updateAuthor(){
 
+            $rawData = file_get_contents("php://input");
+            $data = json_decode($rawData, true);
+
+            $author = $data['author'];
+            $id = $data['id'];
+
+            $query = "UPDATE authors
+                    SET author = ?
+                    WHERE id = ?
+            ";
+
+            try{
+                $stmt = $this->conn->prepare($query);
+                $stmt->execute([$author,$id]);
+                return $data;
+            }
+            catch(PDOException $e){
+                echo 'Connection Error: ' . $e->getMessage();
+            }
+
+
+        }
 
     }
 

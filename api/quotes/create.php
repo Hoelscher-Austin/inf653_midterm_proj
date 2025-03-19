@@ -16,8 +16,6 @@
         exit;
     }
 
-
-
     try{
         $database = new Database();
         $db = $database->connect();

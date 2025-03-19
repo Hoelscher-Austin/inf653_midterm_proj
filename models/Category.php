@@ -82,7 +82,29 @@ class Category{
         }
     }
 
+    // Update Category
+    public function updateCategory(){
 
+        $rawData = file_get_contents("php://input");
+        $data = json_decode($rawData, true); 
+
+        $category = $data['category'];
+        $id = $data['id'];
+
+        $query = "UPDATE categories
+                SET category = ?
+                WHERE id = ?
+        ";
+
+        try{
+            $stmt = $this->conn->prepare($query);
+            $stmt->execute([$category,$id]);
+            return $data;
+        }
+        catch(PDOException $e){
+            echo 'Connection Error: ' . $e->getMessage();
+        }
+    }
 
 }
 
