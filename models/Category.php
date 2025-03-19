@@ -36,7 +36,7 @@ class Category{
 
         if(!isset($_GET['id'])){
             return json_encode([
-                'message' => 'author_id Not Found'
+                'message' => 'category_id Not Found'
             ]);
         }
 
@@ -59,6 +59,34 @@ class Category{
 
     }
 
+
+    // Create Category
+    public function createCategory(){
+
+        $rawData = file_get_contents("php://input");
+        $data = json_decode($rawData, true); 
+
+        $category = $data['category'];
+
+        $query = "INSERT INTO categories(category)
+                VALUES (?)
+        ";
+
+        try{
+            $stmt = $this->conn->prepare($query);
+            $stmt->execute([$category]);
+            return $this->conn->lastInsertId();
+        }
+        catch(PDOException $e){
+            echo 'Connection Error: ' . $e->getMessage();
+        }
+    }
+
+
+
 }
+
+
+
 
 ?>

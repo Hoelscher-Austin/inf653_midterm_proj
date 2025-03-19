@@ -64,7 +64,29 @@
 
         }
 
+        // Create New Author
+        public function createAuthor(){
 
+            $rawData = file_get_contents("php://input");
+            $data = json_decode($rawData, true);
+
+            $author = $data['author'];
+
+            $query = "INSERT INTO authors(author)
+                    VALUES(?)
+            ";
+
+            try{
+                $stmt = $this->conn->prepare($query);
+                $stmt->execute([$author]);
+                return $this->conn->lastInsertId();
+            }
+            catch(PDOException $e){
+                echo 'Connection Error: ' . $e->getMessage();
+            }
+
+
+        }
 
 
 

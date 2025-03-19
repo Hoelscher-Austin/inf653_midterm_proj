@@ -93,9 +93,6 @@ class Quote{
 
     }
 
-
-
-
     // Get quotes from an author in a specific category
     public function getQuoteCA(){
         $author_id = $_GET['author_id'];
@@ -109,6 +106,52 @@ class Quote{
             $stmt = $this->conn->prepare($query);
             $stmt->execute([$author_id,$category_id]);
             return $stmt->fetchAll(PDO::FETCH_ASSOC);
+        }
+        catch(PDOException $e){
+            echo 'Connection Error: ' . $e->getMessage();
+        }
+
+    }
+
+    // Create quote
+    public function createQuote(){
+        $rawData = file_get_contents("php://input");
+        $data = json_decode($rawData, true);
+
+        $newQuote = $data['quote'];
+        $author_id = $data['author_id'];
+        $category_id = $data['category_id'];
+
+        // Check if author_id exists
+        $query = "SELECT EXISTS(SELECT 1 FROM authors WHERE id = ?)";
+        $stmt = $this->conn->prepare($query);
+        $stmt->execute([$author_id]);
+        $authorExists = $stmt->fetchColumn();
+
+        if (!$authorExists) {
+            echo json_encode(["message" => "author_id Not Found"]);
+            exit;
+        }
+
+        // Check if category_id exists
+        $query = "SELECT EXISTS(SELECT 1 FROM categories WHERE id = ?)";
+        $stmt = $this->conn->prepare($query);
+        $stmt->execute([$category_id]);
+        $categoryExists = $stmt->fetchColumn();
+
+        if (!$categoryExists) {
+            echo json_encode(["message" => "category_id Not Found"]);
+            exit;
+        }
+
+        $query = "INSERT INTO quotes(quote,author_id,category_id)
+                VALUES(?,?,?)
+        ";
+
+        try{
+            $stmt = $this->conn->prepare($query);
+            $stmt->execute([$newQuote,$author_id,$category_id]);
+            return $this->conn->lastInsertId();
         }
         catch(PDOException $e){
             echo 'Connection Error: ' . $e->getMessage();
