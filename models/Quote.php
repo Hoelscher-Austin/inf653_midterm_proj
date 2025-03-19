@@ -262,6 +262,51 @@ class Quote{
             echo 'Connection Error: ' . $e->getMessage();
         }
 
+    }
+
+
+    // Delete Quote
+    public function deleteQuote(){
+
+        $rawData = file_get_contents("php://input");
+        $data = json_decode($rawData, true);
+
+        $id = $data['id'];
+
+        // Check if id Exist
+        $query = "SELECT 
+            EXISTS(
+                SELECT 1
+                FROM quotes
+                WHERE id = ?
+            )
+        ";
+
+        $stmt = $this->conn->prepare($query);
+        $stmt->execute([$id]);
+        $idExist = $stmt->fetchColumn();
+
+        if(!$idExist){
+            echo json_encode([
+                'message' => 'No Quotes Found'
+            ]);
+            exit;
+        }
+
+        $query = "DELETE
+            FROM quotes
+            WHERE id = ?
+        ";
+
+        try{
+            $stmt = $this->conn->prepare($query);
+            $stmt->execute([$id]);
+            return $data;
+        }
+        catch(PDOException $e){
+            echo 'Connection Error: ' . $e->getMessage();
+        }
+
 
     }
 

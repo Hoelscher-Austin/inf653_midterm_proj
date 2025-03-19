@@ -110,9 +110,57 @@
             catch(PDOException $e){
                 echo 'Connection Error: ' . $e->getMessage();
             }
-
-
         }
+
+
+
+    // Delete Author
+    public function deleteAuthor(){
+
+        $rawData = file_get_contents("php://input");
+        $data = json_decode($rawData, true);
+
+        $id = $data['id'];
+
+        // Check if id Exist
+        $query = "SELECT 
+            EXISTS(
+                SELECT 1
+                FROM authors
+                WHERE id = ?
+            )
+        ";
+
+        $stmt = $this->conn->prepare($query);
+        $stmt->execute([$id]);
+        $idExist = $stmt->fetchColumn();
+
+        if(!$idExist){
+            echo json_encode([
+                'message' => 'No Author Found'
+            ]);
+            exit;
+        }
+
+        $query = "DELETE
+            FROM authors
+            WHERE id = ?
+        ";
+
+        try{
+            $stmt = $this->conn->prepare($query);
+            $stmt->execute([$id]);
+            return $data;
+        }
+        catch(PDOException $e){
+            echo 'Connection Error: ' . $e->getMessage();
+        }
+
+    }
+
+
+
+
 
     }
 

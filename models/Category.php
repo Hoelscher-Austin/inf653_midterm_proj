@@ -106,6 +106,56 @@ class Category{
         }
     }
 
+
+        // Delete Category
+        public function deleteCategory(){
+
+            $rawData = file_get_contents("php://input");
+            $data = json_decode($rawData, true);
+    
+            $id = $data['id'];
+    
+            // Check if id Exist
+            $query = "SELECT 
+                EXISTS(
+                    SELECT 1
+                    FROM categories
+                    WHERE id = ?
+                )
+            ";
+    
+            $stmt = $this->conn->prepare($query);
+            $stmt->execute([$id]);
+            $idExist = $stmt->fetchColumn();
+    
+            if(!$idExist){
+                echo json_encode([
+                    'message' => 'No Category Found'
+                ]);
+                exit;
+            }
+    
+            $query = "DELETE
+                FROM categories
+                WHERE id = ?
+            ";
+    
+            try{
+                $stmt = $this->conn->prepare($query);
+                $stmt->execute([$id]);
+                return $data;
+            }
+            catch(PDOException $e){
+                echo 'Connection Error: ' . $e->getMessage();
+            }
+    
+    
+        }
+
+
+
+
+
 }
 
 
