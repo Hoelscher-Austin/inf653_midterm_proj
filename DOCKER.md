@@ -9,7 +9,7 @@
 
 
 # build image:
-docker build -t image-name .
+docker build -t {image-name} .
 
 # list images:
 docker image ls
