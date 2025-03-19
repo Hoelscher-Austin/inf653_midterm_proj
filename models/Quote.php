@@ -18,7 +18,7 @@ class Quote{
     // Get All Quotes
 
     public function getQuotes(){
-        $query = "SELECT q.id, q.quote, a.author, q.category
+        $query = "SELECT q.id, q.quote, a.author, c.category
                 FROM quotes q
                 JOIN authors a ON q.author_id = a.id
                 JOIN categories c ON q.category_id = c.id
