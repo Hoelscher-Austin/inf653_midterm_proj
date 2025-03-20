@@ -13,10 +13,9 @@
         $author = new Author($db);
         $authors = $author->getAuthors();
 
-        echo json_encode([
-            'success' => true,
-            'data' => $authors
-        ]);
+        echo json_encode(
+            $authors
+        );
     }
     catch(Excpetion $e){
         echo json_encode([

@@ -32,10 +32,9 @@
             ]);
         }
         else{
-            echo json_encode([
-                'success' => true,
-                'data' => $result
-            ]);
+            echo json_encode(
+                 $result
+            );
         }
     }
     catch(Exception $e){

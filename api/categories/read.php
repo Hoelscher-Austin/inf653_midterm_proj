@@ -11,10 +11,9 @@
         $category = new Category($db);
         $categories = $category->getCategories();
 
-        echo json_encode([
-            'success' => true,
-            'data' => $categories
-        ]);
+        echo json_encode(
+            $categories
+        );
     }
     catch(Excpetion $e){
         echo json_encode([
