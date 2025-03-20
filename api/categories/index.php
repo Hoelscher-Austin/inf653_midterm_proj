@@ -12,7 +12,7 @@
 
     switch($method){
         case 'GET':
-            if($_GET['id']){
+            if(isset($_GET['id'])){
                 include 'read_single.php';
                 break;
             }

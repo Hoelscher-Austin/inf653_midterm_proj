@@ -61,9 +61,11 @@ class Quote{
     public function getQuotesByAuthor(){
         $author_id = $_GET['author_id'];
 
-        $query = "SELECT quote
-                FROM quotes
-                WHERE author_id = ?
+        $query = "SELECT q.id, q.quote, a.author, c.category
+                FROM quotes q
+                JOIN authors a ON q.author_id = a.id
+                JOIN categories c ON q.category_id = c.id
+                WHERE q.author_id = ?
         ";
 
         try{
@@ -80,9 +82,11 @@ class Quote{
     public function getQuotesByCategory(){
         $category_id = $_GET['category_id'];
 
-        $query = "SELECT quote
-                FROM quotes
-                WHERE category_id = ?
+        $query = "SELECT q.id, q.quote, a.author, c.category
+                FROM quotes q
+                JOIN authors a ON q.author_id = a.id
+                JOIN categories c ON q.category_id = c.id
+                WHERE q.category_id = ?
         ";
 
         try{
@@ -103,13 +107,16 @@ class Quote{
         $author_id = $_GET['author_id'];
         $category_id = $_GET['category_id'];
 
-        $query ="SELECT quote
-                FROM quotes
-                WHERE author_id = ? AND category_id = ?
+        $query = "SELECT q.id, q.quote, a.author, c.category
+                FROM quotes q
+                JOIN authors a ON q.author_id = a.id
+                JOIN categories c ON q.category_id = c.id
+                WHERE q.category_id = ? AND q.author_id = ?
         ";
+
         try{
             $stmt = $this->conn->prepare($query);
-            $stmt->execute([$author_id,$category_id]);
+            $stmt->execute([$category_id,$author_id]);
             return $stmt->fetchAll(PDO::FETCH_ASSOC);
         }
         catch(PDOException $e){
