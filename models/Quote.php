@@ -39,9 +39,11 @@ class Quote{
     public function getQuote(){
         $id = $_GET['id'];
         
-        $query = "SELECT quote
-                FROM quotes
-                WHERE id = ?
+        $query = "SELECT q.id, q.quote, a.author, c.category
+                FROM quotes q
+                JOIN authors a ON q.author_id = a.id
+                JOIN categories c ON q.category_id = c.id
+                WHERE q.id = ?
         ";
 
         try{
