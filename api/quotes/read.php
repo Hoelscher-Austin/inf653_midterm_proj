@@ -17,10 +17,9 @@
         $quote = new Quote($db);
         $quotes = $quote->getQuotes();
 
-        echo json_encode([
-            'success' => true,
-            'data' => $quotes
-        ]);
+        echo json_encode(
+            $quotes
+        );
 
     }
     catch(Excpetion $e){
