@@ -71,7 +71,7 @@ class Quote{
         try{
             $stmt = $this->conn->prepare($query);
             $stmt->execute([$author_id]);
-            return $stmt->fetchAll(PDO::FETCH_ASSOC);
+            return $stmt->fetch(PDO::FETCH_ASSOC);
         }
         catch(PDOException $e){
             echo 'Connection Error: ' . $e->getMessage();

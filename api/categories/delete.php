@@ -24,12 +24,9 @@
         $category->deleteCategory();
 
         
-        echo json_encode([
-            'success' => true,
-            'data' => [
-                'id' => $data['id'],
-            ]
-        ]);
+        echo json_encode(
+            $data['id']
+        );
 
     }
     catch(Excpetion $e){

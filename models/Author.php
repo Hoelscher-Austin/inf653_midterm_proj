@@ -47,7 +47,7 @@
 
             $id = $_GET['id'];
 
-            $query = "SELECT author, id
+            $query = "SELECT id, author
                     FROM authors
                     WHERE id = ?
             ";
@@ -56,7 +56,7 @@
                 $stmt = $this->conn->prepare($query);
                 $stmt->execute([$id]);
 
-                return $stmt->fetchAll(PDO::FETCH_ASSOC);
+                return $stmt->fetch(PDO::FETCH_ASSOC);
             }
             catch(PDOException $e){
                 echo 'Connection Error: ' . $e->getMessage();

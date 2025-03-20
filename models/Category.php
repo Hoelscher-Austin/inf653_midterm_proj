@@ -42,7 +42,7 @@ class Category{
 
         $id = $_GET['id'];
 
-        $query = "SELECT category, id
+        $query = "SELECT id, category
                 FROM categories
                 WHERE id = ?
         ";
@@ -51,7 +51,7 @@ class Category{
         try{
             $stmt = $this->conn->prepare($query);
             $stmt->execute([$id]);
-            return $stmt->fetchAll(PDO::FETCH_ASSOC);
+            return $stmt->fetch(PDO::FETCH_ASSOC);
         }
         catch(PDOException $e){
             echo 'Connection Error: ' . $e->getMessage();
