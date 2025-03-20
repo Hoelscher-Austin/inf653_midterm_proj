@@ -142,6 +142,7 @@ class Quote{
                 WHERE id = ?
             )
         ";
+
         $stmt = $this->conn->prepare($query);
         $stmt->execute([$author_id]);
         $authorExists = $stmt->fetchColumn();
@@ -180,7 +181,7 @@ class Quote{
         try{
             $stmt = $this->conn->prepare($query);
             $stmt->execute([$newQuote,$author_id,$category_id]);
-            return $this->conn->lastInsertId();
+            return $stmt->fetch(PDO::FETCH_ASSOC);
         }
         catch(PDOException $e){
             echo 'Connection Error: ' . $e->getMessage();

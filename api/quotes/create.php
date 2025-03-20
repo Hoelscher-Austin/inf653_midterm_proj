@@ -24,15 +24,9 @@
         $newQuote = $quote->createQuote();
 
         
-        echo json_encode([
-            'success' => true,
-            'data' => [
-                'id' => $newQuote,
-                'quote' => $data['quote'],
-                'author_id' => $data['author_id'],
-                'category_id' => $data['category_id']
-            ]
-        ]);
+        echo json_encode(
+            $newQuote
+        );
 
     }
     catch(Excpetion $e){
