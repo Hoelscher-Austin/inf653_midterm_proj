@@ -313,7 +313,8 @@ class Quote{
         try{
             $stmt = $this->conn->prepare($query);
             $stmt->execute([$id]);
-            return $data;
+            return $stmt->fetch(PDO::FETCH_ASSOC);
+            
         }
         catch(PDOException $e){
             echo 'Connection Error: ' . $e->getMessage();

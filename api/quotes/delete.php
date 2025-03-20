@@ -21,11 +21,11 @@
         $db = $database->connect();
 
         $quote = new Quote($db);
-        $quote->deleteQuote();
+        $result = $quote->deleteQuote();
 
         
         echo json_encode(
-            $data['id'],
+            $result
         );
 
     }
