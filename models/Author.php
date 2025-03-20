@@ -79,7 +79,8 @@
             try{
                 $stmt = $this->conn->prepare($query);
                 $stmt->execute([$author]);
-                return $this->conn->lastInsertId();
+                return $stmt->fetch(PDO::FETCH_ASSOC);
+
             }
             catch(PDOException $e){
                 echo 'Connection Error: ' . $e->getMessage();

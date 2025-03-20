@@ -75,7 +75,8 @@ class Category{
         try{
             $stmt = $this->conn->prepare($query);
             $stmt->execute([$category]);
-            return $this->conn->lastInsertId();
+            return $stmt->fetch(PDO::FETCH_ASSOC);
+
         }
         catch(PDOException $e){
             echo 'Connection Error: ' . $e->getMessage();
