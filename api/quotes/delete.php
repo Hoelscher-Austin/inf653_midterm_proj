@@ -24,9 +24,9 @@
         $result = $quote->deleteQuote();
 
         
-        echo json_encode(
-            $result
-        );
+        echo json_encode([
+            'id' => $data['id']
+        ]);
 
     }
     catch(Excpetion $e){

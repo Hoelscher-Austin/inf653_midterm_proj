@@ -24,9 +24,9 @@
         $author->deleteAuthor();
 
         
-        echo json_encode(
-            $data['id']
-        );
+        echo json_encode([
+            'id' => $data['id']
+        ]);
 
     }
     catch(Excpetion $e){

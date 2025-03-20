@@ -314,7 +314,7 @@ class Quote{
         try{
             $stmt = $this->conn->prepare($query);
             $stmt->execute([$id]);
-            return $stmt->fetch(PDO::FETCH_ASSOC);
+            return $data;
             
         }
         catch(PDOException $e){
