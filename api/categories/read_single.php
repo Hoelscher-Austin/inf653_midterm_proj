@@ -13,8 +13,9 @@
         $result = $category->getCategory();
 
         if(!$result){
-            echo json_encode(
-                'message' => 'category_id Not Found');
+            echo json_encode([
+                'message' => 'category_id Not Found'
+            ]);
         }
         else{
             echo json_encode(

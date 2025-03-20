@@ -26,9 +26,9 @@
         }
 
         if(!$result){
-            echo json_encode(
+            echo json_encode([
                 'message' => 'No Quotes Found'
-            );
+            ]);
         }
         else{
             echo json_encode(
