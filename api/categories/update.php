@@ -23,11 +23,8 @@
         $newCategory = $category->updateCategory();
 
         echo json_encode([
-            'success' => true,
-            'data' => [
                 'id' => $data['id'],
                 'category' => $data['category']
-            ]
         ]);
     }
     catch(Excpetion $e){
