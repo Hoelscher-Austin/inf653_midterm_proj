@@ -23,11 +23,8 @@
         $newCategory = $category->createCategory();
 
         echo json_encode([
-            'success' => true,
-            'data' => [
                 'id' => $newCategory,
                 'category' => $data['category']
-            ]
         ]);
     }
     catch(Excpetion $e){

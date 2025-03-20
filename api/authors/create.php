@@ -24,12 +24,9 @@
         $newAuthor = $author->createAuthor();
 
         echo json_encode([
-            'success' => true,
-            'data' => [
                 'id' => $newAuthor,
                 'author' => $data['author']
-            ]
-            ]);
+        ]);
     }
     catch(Excpetion $e){
         echo json_encode([
